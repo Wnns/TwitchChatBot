@@ -1,0 +1,9 @@
+exports.config = {
+	
+	botLogin: '_______',
+	botOAuth: 'oauth:_______',
+	botChannel: '#_______',
+
+	twitchHost: 'irc.chat.twitch.tv',
+	twitchPort: 6667
+};
