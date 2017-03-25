@@ -16,11 +16,7 @@ exports.execute = function(from, message){
 
 var commands = {
 
-	hi: function(){ return "Gitarka siemka" },
+	hi: function(){ return "Hello" },
 	dice: function(from){ return from + " rolled: " + (1 + Math.floor(Math.random() * 6)); },
-	kappa: function(){ return "Kappa" },
-	test: function(from, arguments){
-
-		return "Pierwszy arg to " 
-	}
+	kappa: function(){ return "Kappa" }
 };
