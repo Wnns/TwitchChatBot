@@ -17,6 +17,7 @@ exports.execute = function(from, message){
 var commands = {
 
 	hi: function(){ return "Hello" },
-	dice: function(from){ return from + " rolled: " + (1 + Math.floor(Math.random() * 6)); },
-	kappa: function(){ return "Kappa" }
+	dice: function(from){ return from + " rolled: " + (1 + Math.floor(Math.random() * 6)) },
+	kappa: function(){ return "Kappa" },
+	test: function(from, arg){ return arg.split("").reverse().join("") }
 };
