@@ -1,5 +1,5 @@
 var irc = require('irc');
-var commands = require('./commands');
+var messages = require('./messages');
 var config = require('./config').config;
 
 var client = new irc.Client(config.twitchHost, config.botLogin, {
@@ -16,22 +16,21 @@ var client = new irc.Client(config.twitchHost, config.botLogin, {
 
 client.addListener('message', function(from, to, message){
 
-	if(message.charAt(0) == "!"){
+	var response = messages.processMessage(from, message);
+	
+	if(response != undefined){
 
-		var response = commands.execute(from, message);
-
-		if(response != undefined){
-
-			client.say(config.botChannel, response);
-		}		
+		client.say(config.botChannel, response);
 	}
 });
 
 client.addListener('error', function(message){
 
+	console.log("ERROR: ");
+	console.log(message);
 });
 
 client.connect(function(message){
 
-	console.log("Connected");
+	console.log("*** Connected ***");
 });
