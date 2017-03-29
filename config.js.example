@@ -1,8 +1,10 @@
 exports.config = {
+
+	logErrors: false,
 	
-	botLogin: 'tajnyszpieg',
-	botOAuth: 'oauth:qq5gez7pfl42kb1fhmtrlxfil2ju0x',
-	botChannel: '#wikipiciu',
+	botLogin: '______',
+	botOAuth: '______',
+	botChannel: '#______',
 
 	twitchHost: 'irc.chat.twitch.tv',
 	twitchPort: 6667

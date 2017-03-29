@@ -1,0 +1,10 @@
+exports.plugin = {
+	
+	name: 'Plugin name',
+	command: '___',
+
+	action: function(from, arguments){
+
+		return 'bot response';
+	}
+}

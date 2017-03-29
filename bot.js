@@ -1,6 +1,7 @@
 var irc = require('irc');
-var messages = require('./messages');
 var config = require('./config').config;
+var plugins = require('./plugins');
+var messages = require('./messages');
 
 var client = new irc.Client(config.twitchHost, config.botLogin, {
 
@@ -26,6 +27,11 @@ client.addListener('message', function(from, to, message){
 
 client.addListener('error', function(message){
 
+	if(!config.logErrors){
+
+		return;
+	}
+	
 	console.log("ERROR: ");
 	console.log(message);
 });
