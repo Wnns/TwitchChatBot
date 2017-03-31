@@ -1,9 +1,9 @@
 var irc = require('irc');
-var config = require('./config').config;
-var plugins = require('./plugins');
-var messages = require('./messages');
+require('./config');
+var config = global.config;
+var actions = require('./actions');
 
-var client = new irc.Client(config.twitchHost, config.botLogin, {
+global.client = new irc.Client(config.twitchHost, config.botLogin, {
 
 	port: config.twitchPort,
 	userName: config.botLogin,
@@ -15,14 +15,11 @@ var client = new irc.Client(config.twitchHost, config.botLogin, {
 	autoConnect: false
 });
 
-client.addListener('message', function(from, to, message){
+var client = global.client;
 
-	var response = messages.processMessage(from, message);
-	
-	if(response != undefined){
+client.addListener('message', function(from, channel, message){
 
-		client.say(config.botChannel, response);
-	}
+	actions.processMessage(from, channel, message);
 });
 
 client.addListener('error', function(message){
