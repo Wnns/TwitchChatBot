@@ -1,4 +1,5 @@
-// TODO: make raffle support multiple channels
+global.currentRaffles = {};
+
 exports.action = {
 	
 	message: function(from, channel, message, command, argument){
@@ -7,46 +8,74 @@ exports.action = {
 
 			if(from != channel.substring(1)){
 
-				global.client.say(channel, '/pm ' + from + ' You are not owner of this channel');
-				return;
-			}
-
-			if(global.currentRaffle && global.currentRaffle.isActive){
+				global.say(channel, '/pm ' + from + ' You are not owner of this channel');
 
 				return;
 			}
 
-			global.currentRaffle = {
+			if(raffleExistsOn(channel) && global.currentRaffles[channel].isActive){
+
+				global.say(channel, '/pm ' + from + ' You are not owner of this channel');
+
+				return;
+			}
+
+			global.currentRaffles[channel] = {
 
 				isActive: true,
 				participants: [],
-				raffleDuration: parseInt(argument)
+				raffleDuration: parseInt(argument),
+				timeout: null
 			};
 
-			setTimeout(function(){
+			global.currentRaffles[channel].timeout = setTimeout(function(){
 
-				if(global.currentRaffle.participants.length == 0){
+				if(global.currentRaffles[channel].participants.length == 0){
 
-					global.client.say(channel, 'Nobody took part in the raffle.');
+					global.say(channel, 'Nobody took part in the raffle.');
 					return;
 				}
 
-				var winner = Math.floor(Math.random() * global.currentRaffle.participants.length);
+				var winner = Math.floor(Math.random() * global.currentRaffles[channel].participants.length);
 
-				global.client.say(channel, global.currentRaffle.participants[winner] + ' won the raffle!');
-				global.client.say(channel, '/pm ' + channel.substring(1) + ' ' +  global.currentRaffle.participants[winner] + ' won the raffle!');
+				global.say(channel, global.currentRaffles[channel].participants[winner] + ' won the raffle!');
+				global.say(channel, '/pm ' + channel.substring(1) + ' ' +  global.currentRaffles[channel].participants[winner] + ' won the raffle!');
 
-				global.currentRaffle = {};
+				delete global.currentRaffles[channel];
 
-			}, global.currentRaffle.raffleDuration* 1000);
+			}, global.currentRaffles[channel].raffleDuration* 1000);
+
+			global.say(channel, 'Raffle started! Type !raffle to take part!');
+
 		}
 
 		if(command == '!raffle'){
 
-			if(global.currentRaffle.participants.indexOf(from) == -1){
+			if(raffleExistsOn(channel) && global.currentRaffles[channel].participants.indexOf(from) == -1){
 
-				global.currentRaffle.participants.push(from)
+				global.currentRaffles[channel].participants.push(from)
+			}
+		}
+
+		if(command == '!cancelraffle'){
+
+			if(raffleExistsOn(channel)){
+
+				clearTimeout(global.currentRaffles[channel].timeout);
+				delete global.currentRaffles[channel];
+
+				global.say(channel, 'Raffle canceled.');
 			}
 		}
 	}
+}
+
+function raffleExistsOn(channel){
+
+	if(global.currentRaffles[channel]){
+
+		return true;
+	}
+
+	return false;
 }

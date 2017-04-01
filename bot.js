@@ -9,7 +9,7 @@ global.client = new irc.Client(config.twitchHost, config.botLogin, {
 	userName: config.botLogin,
 	realName: config.botLogin,
 	password:config.botOAuth,
-	channels: [config.botChannel],
+	channels: config.botChannels,
 	secure: false,
 	sasl: false,
 	autoConnect: false
@@ -37,3 +37,9 @@ client.connect(function(message){
 
 	console.log("*** Connected ***");
 });
+
+global.say = function(channel, message){
+
+	//Todo: twitch restrictions following
+	global.client.say(channel, message);
+}

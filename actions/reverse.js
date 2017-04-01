@@ -5,7 +5,7 @@ exports.action = {
 		if(command == '!reverse'){
 
 			var reversedMessage = argument.split('').reverse().join('');
-			global.client.say(channel, reversedMessage);
+			global.say(channel, reversedMessage);
 		}
 	}
 }

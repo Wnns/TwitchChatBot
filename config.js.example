@@ -4,7 +4,7 @@ global.config = {
 	
 	botLogin: '______',
 	botOAuth: '______',
-	botChannel: '#______',
+	botChannels: ['#_____', '#____'],
 
 	twitchHost: 'irc.chat.twitch.tv',
 	twitchPort: 6667
