@@ -9,3 +9,14 @@ global.config = {
 	twitchHost: 'irc.chat.twitch.tv',
 	twitchPort: 6667
 };
+
+global.messageFilter = {
+
+	bannedWords: [
+
+		"_____",
+		"_____"
+	],
+	
+	timeout: 1
+}
