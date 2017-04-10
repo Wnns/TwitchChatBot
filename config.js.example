@@ -19,4 +19,10 @@ global.messageFilter = {
 	],
 	
 	timeout: 1
-}
+};
+
+global.staticCommands = {
+
+	'command': 'response',
+	'command': 'response'
+};

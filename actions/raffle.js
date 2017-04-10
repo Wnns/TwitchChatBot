@@ -15,7 +15,7 @@ exports.action = {
 
 			if(raffleExistsOn(channel) && global.currentRaffles[channel].isActive){
 
-				global.say(channel, '/pm ' + from + ' You are not owner of this channel');
+				global.say(channel, '/pm ' + from + ' Raffle already exists. Type !cancelraffle to cancel current raffle.');
 
 				return;
 			}
